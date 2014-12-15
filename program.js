@@ -1,3 +1,40 @@
+// lesson #13
+// HTTP JSON API SERVER
+
+var http = require('http'),
+	url = require('url');
+
+var srvr = http.createServer(function(req, res){
+
+	if (req.method != 'GET'){
+		return res.end('Not a GET request');
+	}	
+
+	var urlObj = url.parse(req.url, true);
+
+	if (urlObj.pathname == '/api/parsetime') {
+
+		var iso = urlObj.query.iso,
+			isoSplit = new Date(iso);
+
+		res.writeHead(200, { 'Content-Type': 'application/json' });
+    	res.end(JSON.stringify({
+    		hour: isoSplit.getHours(),
+    		minute: isoSplit.getMinutes(),
+    		second: isoSplit.getSeconds()
+    	}));
+	} else if (urlObj.pathname == '/api/parsetime') {
+		res.writeHead(200, {'Content-Type': 'application/json'});
+		res.end(JSON.stringify({
+    		unixtime: isoSplit.getTime()
+    	}));
+	}
+
+});
+
+srvr.listen(Number(process.argv[2]));
+
+
 // lesson #12
 // HTTP UPPERCASERER
 
