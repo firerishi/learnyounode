@@ -1,3 +1,24 @@
+// lesson #12
+// HTTP UPPERCASERER
+
+var map = require('through2-map'),
+	http = require('http');
+
+var srvr = http.createServer(function(req, res){
+
+	if (req.method != 'POST'){
+		return res.end('Not a POST request');
+	}
+
+	req.pipe(map(function(chunk){
+		return chunk.toString().toUpperCase();
+	})).pipe(res);
+
+});
+
+srvr.listen(process.argv[2]);
+
+
 // lesson #11
 // HTTP FILE SERVER
 
@@ -17,6 +38,7 @@ var srvr = http.createServer(function(req, res){
 });
 
 srvr.listen(process.argv[2]);
+
 
 // lesson #10
 // TIME SERVER
