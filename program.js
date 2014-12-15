@@ -1,3 +1,23 @@
+// lesson #11
+// HTTP FILE SERVER
+
+var fs = require('fs'),
+	http = require('http');
+
+var srvr = http.createServer(function(req, res){
+
+	var src = fs.createReadStream(process.argv[3]);
+
+	res.writeHead(200, {
+		'content-type': 'text/plain'
+	})
+
+	src.pipe(res);
+
+});
+
+srvr.listen(process.argv[2]);
+
 // lesson #10
 // TIME SERVER
 
